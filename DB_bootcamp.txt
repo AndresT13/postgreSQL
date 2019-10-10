@@ -1,0 +1,121 @@
+-- Database: sexpress
+
+-- DROP DATABASE sexpress;
+
+CREATE DATABASE sexpress
+    WITH 
+    OWNER = postgres
+    ENCODING = 'UTF8'
+    LC_COLLATE = 'Spanish_Colombia.1252'
+    LC_CTYPE = 'Spanish_Colombia.1252'
+    TABLESPACE = pg_default
+    CONNECTION LIMIT = -1;
+	
+	create table cliente(
+	id_cliente serial,
+	nombre varchar(80),
+	apellido varchar(80),
+	identificacion bigint,
+	direccion varchar(120),
+	fecha_nacimiento timestamp,
+	telefono bigint,
+	email varchar(80),
+	fecha_ingreso timestamp,
+	primary key (id_cliente)
+	);
+	
+	 drop table cliente;
+	
+	create table factura(
+	num_factura serial primary key,
+	id_cliente int,
+	fecha timestamp,
+	num_pago int,
+	foreign key (id_cliente) references cliente(id_cliente),
+	foreign key (num_pago) references detalle(num_detalle)
+	);
+	
+	create table detalle (
+	num_detalle serial primary key,
+	id_factura int,
+	id_producto int,
+	cantidad int,
+	precio money );
+	
+	create table producto (
+	id_producto serial primary key,
+	nombre varchar (80),
+	precio money,
+	id_categoria int,
+	foreign key (id_categoria) references categoria(id_categoria)
+	);
+	
+	create table categoria(
+	id_categoria serial primary key,
+	nombre varchar(80),
+	descripción varchar(255)
+	);
+	
+	INSERT INTO cliente ( nombre, apellido, identificacion, direccion, fecha_nacimiento, telefono, email, fecha_ingreso) VALUES
+	('Leo','Perez',12345632,'Bogotá','1991/05/19',314789965,'leo-perez@notiene.com','2017/04/09'),
+	('andres','Zapata',12345632,'Bogotá','1992/05/19',3145876441,'andres-zapata@notiene.com','2017/04/19'),
+	('Bibiana','Yinasa',12345632,'Bogotá','1996/05/19',3124587641,'bibiana-yinasa@notiene.com','2017/04/29'),
+	('Carlos','Xicothlan',12345632,'Bogotá','1998/05/19',3142657896,'carlos-xicothlan@notiene.com','2017/06/15'),
+	('Daviana','Vizconti',12345632,'Bogotá','1996/05/19',3145874112,'daviana-vizconti@notiene.com','2017/07/11'),
+	('Ernesto','Perez',12345632,'Bogotá','1993/05/19',3145479874,'ernesto-perez@notiene.com','2017/08/05'),
+	('Francisco','Muñoz',12345632,'Bogotá','1994/05/19',3124578998,'francisco-muñoz@notiene.com','2017/09/07'),
+	('Wilson','Triana',12345632,'Bogotá','1996/05/19',3144587445,'wilson-triana@notiene.com','2017/10/04'),
+	('Leonidas','Bastidas',12345632,'Bogotá','1992/05/19',3025877896,'leonidas-bastidas@notiene.com','2017/11/09'),
+	('Marcela','Arrechea',12345632,'Bogotá','1993/05/19',3014587319,'marcela-arrechea@notiene.com','2018/04/19');
+	
+	
+	INSERT INTO factura ( id_cliente, fecha, num_pago) VALUES
+	(1,'2017/04/09',1),
+	(2,'2017/04/19',2),
+	(3,'2017/04/29',3),
+	(4,'2017/06/15',4),
+	(5,'2017/07/11',5),
+	(6,'2017/08/05',6),
+	(7,'2017/09/07',7),
+	(8,'2017/10/04',8),
+	(9,'2017/11/09',9),
+	(10,'2018/04/19',10);
+	
+	
+	INSERT INTO detalle ( id_factura, id_producto, cantidad, precio) VALUES
+	(1,1,4,10000),
+	(2,2,5,6000),
+	(3,3,1,1500),
+	(4,4,1,2000),
+	(5,5,2,4600),
+	(6,6,9,10800),
+	(7,7,1,4500),
+	(8,8,2,4780),
+	(9,9,1,3990),
+	(10,10,1,1200);
+	
+
+	INSERT INTO producto ( nombre, precio, id_categoria) VALUES
+	('coca cola',2500,1),
+	('papas super-ricas 120 gms',1200,2),
+	('galletas cocosette',1500,3),
+	('todo rico criollo personal',2000,4),
+	('marisella bimbo',2300,5),
+	('papas margarita pollo',1200,6),
+	('sprite 500gms',4500,7),
+	('yogurt alpina mora',2390,8),
+	('cabano asturia',3990,9),
+	('chocoramo',1200,10);
+	
+	INSERT INTO categoria ( nombre, descripción) VALUES
+	('coca cola','bebida'),
+	('papas super-ricas 120 gms','snack'),
+	('galletas cocosette','galetas'),
+	('todo rico criollo personal','snack'),
+	('marisella bimbo','ponque'),
+	('papas margarita pollo','snack'),
+	('sprite 500gms','bebida'),
+	('yogurt alpina mora','lacteo'),
+	('cabano asturia','charcutería'),
+	('chocoramo','ponque');
+	
