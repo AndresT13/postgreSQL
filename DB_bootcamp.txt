@@ -41,7 +41,6 @@ CREATE DATABASE sexpress
 	id_producto int,
 	cantidad int,
 	precio money );
-	
 	create table producto (
 	id_producto serial primary key,
 	nombre varchar (80),
@@ -68,6 +67,7 @@ CREATE DATABASE sexpress
 	('Leonidas','Bastidas',12345632,'Bogotá','1992/05/19',3025877896,'leonidas-bastidas@notiene.com','2017/11/09'),
 	('Marcela','Arrechea',12345632,'Bogotá','1993/05/19',3014587319,'marcela-arrechea@notiene.com','2018/04/19');
 	
+	select * from cliente;
 	
 	INSERT INTO factura ( id_cliente, fecha, num_pago) VALUES
 	(1,'2017/04/09',1),
@@ -80,6 +80,8 @@ CREATE DATABASE sexpress
 	(8,'2017/10/04',8),
 	(9,'2017/11/09',9),
 	(10,'2018/04/19',10);
+	
+	select * from factura;
 	
 	
 	INSERT INTO detalle ( id_factura, id_producto, cantidad, precio) VALUES
@@ -94,6 +96,7 @@ CREATE DATABASE sexpress
 	(9,9,1,3990),
 	(10,10,1,1200);
 	
+	select * from detalle;
 
 	INSERT INTO producto ( nombre, precio, id_categoria) VALUES
 	('coca cola',2500,1),
@@ -107,6 +110,8 @@ CREATE DATABASE sexpress
 	('cabano asturia',3990,9),
 	('chocoramo',1200,10);
 	
+	select * from producto;
+	
 	INSERT INTO categoria ( nombre, descripción) VALUES
 	('coca cola','bebida'),
 	('papas super-ricas 120 gms','snack'),
@@ -119,3 +124,12 @@ CREATE DATABASE sexpress
 	('cabano asturia','charcutería'),
 	('chocoramo','ponque');
 	
+	select * from categoria;
+	
+	select * from factura fa inner join cliente cl on fa.id_cliente=cl.id_cliente;
+	
+	select * from detalle de inner join factura fa on de.id_factura=fa.num_factura;
+	
+	select * from detalle;
+	
+		
